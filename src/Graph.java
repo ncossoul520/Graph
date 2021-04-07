@@ -9,7 +9,7 @@ public class Graph {
     }
 
     public void addNode(String name) {
-        if ( getNode(name) == null) {
+        if ( getNode(name) == null ) {
             nodes.add(new Node(name));
         }
     }
@@ -40,10 +40,13 @@ public class Graph {
     public class Node {
         private String name;
         private List<Node> neighbors;
+        private List<Item> items;
+
 
         private Node(String name) {
             this.name = name;
             neighbors = new ArrayList<Node>();
+            items = new ArrayList<>();
         }
 
         private void addNeighbor(Node n) {
@@ -70,6 +73,45 @@ public class Graph {
             }
             return names;
         }
+
+        public String displayItems() {
+            String out = "";
+            for (Item item : items) {
+                out += " " + item.getName();
+            }
+            return out;
+        }
+
+        public void addItem(String name) {
+            addItem(name, "");
+        }
+
+        public void addItem(String name, String description) {
+            for (Item item : items) {
+                if ( item.getName().equals( name ) ) {
+                    return;
+                }
+            }
+            addItem( new Item(name, description) );
+        }
+
+        public void addItem(Item item) {
+            if ( item != null && !items.contains( item ) ) {
+                items.add( item );
+            }
+        }
+
+        public Item removeItem(String name) {
+            for (Item item : items) {
+                if ( item.getName().equals( name ) ) {
+                    items.remove( item );
+                    return item;
+                }
+            }
+            return null;
+        }
+
+
     }
 
 }
