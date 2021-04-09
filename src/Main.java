@@ -7,14 +7,22 @@ public class Main {
         // Create rooms
         g.addNode("hall");
         g.addNode("closet");
-        g.addNode("dungeon");
         g.addDirectedEdge("hall", "closet");
+        g.addNode("dungeon");
         g.addUnidirectedEdge("hall", "dungeon");
+        g.addNode("gym");
+        g.addUnidirectedEdge("dungeon", "gym");
 
         // Create items
-        g.getNode("hall").addItem( "axe" );
-        g.getNode("closet").addItem( "shirt" );
-        g.getNode("dungeon").addItem( "diamond" );
+        g.getNode("hall").items.addItem( "axe" );
+        g.getNode("closet").items.addItem( "shirt" );
+        g.getNode("dungeon").items.addItem( "diamond" );
+
+        // Create creatures
+        g.getNode("hall").addCreature( new Chicken("chicken1") );
+        g.getNode("hall").addCreature( new Chicken("chicken2") );
+        g.getNode("closet").addCreature( new Wumpus("wumpus1") );
+        g.getNode("gym").addCreature( new Popstar("popstar1") );
 
         // Create player
         Player p1 = new Player("Chad", "the Dude");
@@ -45,8 +53,9 @@ public class Main {
 
             // Look
             else if ( response.equals("look") ) {
-                p1.displayInventory();
-                System.out.println("Items in the room:" + p1.getCurrentRoom().displayItems() );
+                System.out.println("Creatures: " + p1.getCurrentRoom().displayCreatures());
+                System.out.println("Your items: " + p1.items.displayItems() );
+                System.out.println("Items in the room: " + p1.getCurrentRoom().items.displayItems() );
                 System.out.println("Next rooms: " + p1.getCurrentRoom().getNeighborNames() );
 
             }
@@ -64,20 +73,17 @@ public class Main {
             // Take
             else if ( response.length() >= 5 && response.substring(0,5).equals("take ") ) {
                 String item_name = response.substring(5);
-                p1.addItem( p1.getCurrentRoom().removeItem( item_name ) );
-                p1.displayInventory();
+                p1.items.addItem( p1.getCurrentRoom().items.removeItem( item_name ) );
+                System.out.println("Your items: " +  p1.items.displayItems());
             }
 
             // Drop
             else if ( response.length() >= 5 && response.substring(0,5).equals("drop ") ) {
                 String item_name = response.substring(5);
-                p1.getCurrentRoom().addItem( p1.removeItem( item_name ) );
-                p1.displayInventory();
+                p1.getCurrentRoom().items.addItem( p1.items.removeItem( item_name ) );
+                System.out.println("Your items: " + p1.items.displayItems());
             }
-
-
         } while (!response.equals("quit"));
-
     }
 
     private static void displayHelp() {

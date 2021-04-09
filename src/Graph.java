@@ -5,7 +5,7 @@ public class Graph {
     private List<Node> nodes;
 
     public Graph() {
-        nodes = new ArrayList<Node>();
+        nodes = new ArrayList<>();
     }
 
     public void addNode(String name) {
@@ -36,17 +36,18 @@ public class Graph {
         return null;
     }
 
-
+    //-------------------------------------------------------------------------------
     public class Node {
         private String name;
         private List<Node> neighbors;
-        private List<Item> items;
-
+        private List<GenericEntity> creatures;
+        public ItemContainer items;
 
         private Node(String name) {
             this.name = name;
-            neighbors = new ArrayList<Node>();
-            items = new ArrayList<>();
+            neighbors = new ArrayList<>();
+            creatures = new ArrayList<>();
+            items = new ItemContainer();
         }
 
         private void addNeighbor(Node n) {
@@ -74,44 +75,16 @@ public class Graph {
             return names;
         }
 
-        public String displayItems() {
+        public void addCreature(GenericEntity creature) {
+            creatures.add( creature );
+        }
+
+        public String displayCreatures() {
             String out = "";
-            for (Item item : items) {
-                out += " " + item.getName();
+            for (GenericEntity creature : creatures) {
+                out += creature.getName() + " ";
             }
             return out;
         }
-
-        public void addItem(String name) {
-            addItem(name, "");
-        }
-
-        public void addItem(String name, String description) {
-            for (Item item : items) {
-                if ( item.getName().equals( name ) ) {
-                    return;
-                }
-            }
-            addItem( new Item(name, description) );
-        }
-
-        public void addItem(Item item) {
-            if ( item != null && !items.contains( item ) ) {
-                items.add( item );
-            }
-        }
-
-        public Item removeItem(String name) {
-            for (Item item : items) {
-                if ( item.getName().equals( name ) ) {
-                    items.remove( item );
-                    return item;
-                }
-            }
-            return null;
-        }
-
-
     }
-
 }

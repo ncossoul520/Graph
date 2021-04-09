@@ -2,45 +2,13 @@ import java.util.ArrayList;
 
 public class Player {
     private String name, description;
-    private ArrayList<Item> items;
     private Graph.Node room;
+    public ItemContainer items;
 
     public Player(String name, String description) {
         this.name = name;
         this.description = description;
-        items = new ArrayList<>();
-    }
-
-    public void addItem(Item item) {
-        if ( item != null && !items.contains( item ) ) {
-            items.add( item );
-        }
-    }
-
-    public Item removeItem(String name) {
-        for (Item item : items) {
-            if ( item.getName().equals( name ) ) {
-                return removeItem( item );
-            }
-        }
-        return null;
-    }
-
-
-    public Item removeItem(Item item) {
-        if ( items.contains( item ) ) {
-            items.remove( item );
-            return item;
-        }
-        return null;
-    }
-
-    public void displayInventory() {
-        System.out.print("Your items:");
-        for (Item item : items) {
-            System.out.print(" " + item.getName());
-        }
-        System.out.println();
+        items = new ItemContainer();
     }
 
     public Graph.Node getCurrentRoom() {
