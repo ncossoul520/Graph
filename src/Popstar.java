@@ -4,8 +4,10 @@ public class Popstar extends GenericEntity {
         this.description = "";
     }
 
-    public void move() { // TODO
-        Graph.Node nextRoom = null; /* get next room */
-        this.currentRoom = nextRoom;
+    // Move to player room if adjacent, else doesn't move
+    public void move() {
+        if ( currentRoom.getNeighbor( playerRoom.getName() ) != null ) {
+            this.currentRoom = playerRoom;
+        }
     }
 }

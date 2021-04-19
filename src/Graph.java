@@ -8,6 +8,10 @@ public class Graph {
         nodes = new ArrayList<>();
     }
 
+    public List<Node> getNodes() {
+        return nodes;
+    }
+
     public void addNode(String name) {
         if ( getNode(name) == null ) {
             nodes.add(new Node(name));
@@ -77,6 +81,7 @@ public class Graph {
 
         public void addCreature(GenericEntity creature) {
             creatures.add( creature );
+            creature.setCurrentRoom( this );
         }
 
         public String displayCreatures() {
@@ -85,6 +90,10 @@ public class Graph {
                 out += creature.getName() + " ";
             }
             return out;
+        }
+
+        public List<GenericEntity> getCreatures() {
+            return creatures;
         }
     }
 }

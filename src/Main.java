@@ -83,6 +83,15 @@ public class Main {
                 p1.getCurrentRoom().items.addItem( p1.items.removeItem( item_name ) );
                 System.out.println("Your items: " + p1.items.displayItems());
             }
+
+            // Move creatures
+            for ( Graph.Node room: g.getNodes() ) {
+                for (GenericEntity creature : room.getCreatures()) {
+                    creature.setPlayerRoom( p1.getCurrentRoom() );
+                    // TODO debug
+//                    creature.move();
+                }
+            }
         } while (!response.equals("quit"));
     }
 

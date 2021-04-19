@@ -4,8 +4,12 @@ public class Wumpus extends GenericEntity {
         this.description = "";
     }
 
-    public void move() { // TODO
-        Graph.Node nextRoom = null;/* get next room */
-        this.currentRoom = nextRoom;
+    // If adjacent to player move away, else move randomly
+    public void move() {
+        if ( currentRoom.getNeighbor( playerRoom.getName() ) != null ) {
+            this.currentRoom = randomRoomOtherThan( playerRoom.getName() );
+        } else {
+            this.currentRoom = randomRoom();
+        }
     }
 }
