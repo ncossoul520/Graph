@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package main;
+import items.ItemContainer;
 
 public class Player {
     private String name, description;
@@ -17,10 +18,12 @@ public class Player {
 
     public void setCurrentRoom(Graph.Node new_room) {
         this.room = new_room;
+        this.room.addPlayer();
     }
 
     public boolean moveToRoom(Graph.Node new_room) {
         if ( this.room.getNeighbor(new_room.getName() ) != null ) {
+            this.room.removePlayer();
             setCurrentRoom( new_room );
             return true;
         } else {

@@ -1,7 +1,9 @@
+package entities;
+import main.*;
+
 public abstract class GenericEntity implements Entity {
     protected String name, description;
     protected Graph.Node currentRoom;
-    protected Graph.Node playerRoom;
 
     public Graph.Node getRoom() { return currentRoom; }
     public void setCurrentRoom(Graph.Node currentRoom) {
@@ -11,14 +13,6 @@ public abstract class GenericEntity implements Entity {
     public String getName() { return name; }
     public String getDescription() { return description; }
     public abstract void move();
-
-    public Graph.Node getPlayerRoom() {
-        return playerRoom;
-    }
-
-    public void setPlayerRoom(Graph.Node playerRoom) {
-        this.playerRoom = playerRoom;
-    }
 
     public Graph.Node randomRoom() {
         String[] rooms = currentRoom.getNeighborNames().split(" ");

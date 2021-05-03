@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package entities;
 
 public class Chicken extends GenericEntity {
     public Chicken(String name) {
@@ -8,6 +8,8 @@ public class Chicken extends GenericEntity {
 
     // Move randomly
     public void move() {
-        this.currentRoom = randomRoom();
+        currentRoom.removeCreature( this );
+        currentRoom = randomRoom();
+        currentRoom.addCreature( this );
     }
 }
